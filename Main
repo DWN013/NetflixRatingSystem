@@ -13,10 +13,10 @@ public class Main
 {
     public static void Main (String[] args) 
     {
-        BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
+        double ratingList [200000][10000];
         String movie;
         String[] movieFields = new String[3];
-        ArrayList<Movie> movie
         while ((movie = reader.readLine()) != null) 
         {
             movieFields = movie.split(",");
