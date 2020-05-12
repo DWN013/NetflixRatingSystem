@@ -15,9 +15,9 @@ public class Main
     {
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
         double ratingList [200000][611];
-        String movie;
-        String[] movieFields = new String[3];
-        while ((movie = reader.readLine()) != null) 
+        String ratings;
+        String[] ratingsFields = new String[4];
+        while ((ratings = reader.readLine()) != null) 
         {
             movieFields = movie.split(",");
         }
