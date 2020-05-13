@@ -14,12 +14,14 @@ public class Main
     public static void Main (String[] args) 
     {
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
-        double ratingList [200000][611];
+        ArrayList<int> movieId;
+        ArrayList<double> userRating;
         String ratings;
         String[] ratingsFields;
         while ((ratings = reader.readLine()) != null) 
         {
             ratingsFields = movie.split(",");
+            
         }
     }
 }
