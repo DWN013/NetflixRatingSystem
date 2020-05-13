@@ -14,6 +14,7 @@ public class Main
     public static void Main (String[] args) 
     {
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
+        int userId = 1;
         ArrayList<int> movieId;
         ArrayList<double> userRating;
         String ratings;
@@ -21,7 +22,13 @@ public class Main
         while ((ratings = reader.readLine()) != null) 
         {
             ratingsFields = movie.split(",");
-            
+            if (userId != Integer.parseInt(ratingsFields[0]))
+            {
+                User user = (userId, movieId, userRating);
+                userId = Integer.parseInt(ratingsFields[0]);
+            }
+            moveId.add(Integer.parseInt(ratingsFields[1]));
+            userRating.add(Double.parseDouble(ratingsFields[2]));
         }
     }
 }
