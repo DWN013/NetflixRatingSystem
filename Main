@@ -11,24 +11,30 @@ import java.io.*;
  */
 public class Main
 {
-    public static void Main (String[] args) 
+    public static void main (String[] args) throws IOException
     {
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
-        int userId = 1;
-        ArrayList<int> movieId;
-        ArrayList<double> userRating;
-        String ratings;
+        reader.readLine();
+        String ratings = reader.readLine();
         String[] ratingsFields;
-        while ((ratings = reader.readLine()) != null) 
+        int userId = 0;
+        User user = new User(0);
+        while (ratings != null) 
         {
-            ratingsFields = movie.split(",");
+            ratingsFields = ratings.split(",");
             if (userId != Integer.parseInt(ratingsFields[0]))
             {
-                User user = (userId, movieId, userRating);
                 userId = Integer.parseInt(ratingsFields[0]);
+                user = new User(userId);
+                
             }
-            moveId.add(Integer.parseInt(ratingsFields[1]));
-            userRating.add(Double.parseDouble(ratingsFields[2]));
+            user.addMovieId(Integer.parseInt(ratingsFields[1]));
+            user.addRating(Double.parseDouble(ratingsFields[2]));
+            ratings = reader.readLine();
         }
+        reader.close();
+        
+        
+        
     }
 }
