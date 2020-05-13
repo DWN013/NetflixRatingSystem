@@ -16,10 +16,10 @@ public class Main
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
         double ratingList [200000][611];
         String ratings;
-        String[] ratingsFields = new String[4];
+        String[] ratingsFields;
         while ((ratings = reader.readLine()) != null) 
         {
-            movieFields = movie.split(",");
+            ratingsFields = movie.split(",");
         }
     }
 }
