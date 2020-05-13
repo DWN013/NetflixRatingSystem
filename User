@@ -1,6 +1,7 @@
 public class User
 {
     private int userId;
-    private int[] movieId;
+    private ArrayList<int> movieId;
+    private ArrayList<double> ratings;
     
 }
