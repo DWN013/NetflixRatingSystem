@@ -1,12 +1,16 @@
-public class User
-{
+import java.util.*;
+public class User {
     private int userId;
-    private ArrayList<int> movieId;
-    private ArrayList<double> ratings;
-    public User (int u, ArrayList<int> m, ArrayList<double> r)
+    private ArrayList<Integer> movieId;
+    private ArrayList<Double> ratings;
+    public User (int u)
     {
         userId = u;
-        movieId = m;
-        ratings = r;
+    }
+    public void addMovieId(int m){
+        movieId.add(m);
+    }
+    public void addRating(double r){
+        ratings.add(r);
     }
 }
