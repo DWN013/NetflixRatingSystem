@@ -3,5 +3,10 @@ public class User
     private int userId;
     private ArrayList<int> movieId;
     private ArrayList<double> ratings;
-    
+    public User (int u, ArrayList<int> m, ArrayList<double> r)
+    {
+        userId = u;
+        movieId = m;
+        ratings = r;
+    }
 }
