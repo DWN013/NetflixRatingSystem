@@ -13,6 +13,7 @@ public class Main
 {
     public static void main (String[] args) throws IOException
     {
+    
         BufferedReader reader = new BufferedReader(new FileReader("ratings.csv"));
         reader.readLine();
         String ratings = reader.readLine();
@@ -34,6 +35,21 @@ public class Main
         }
         reader.close();
         
+        
+        
+        reader = new BufferedReader(new FileReader("movies.csv"));
+        Movie [] movie = new Movie[200000];
+        reader.readLine();
+        String movieLine = reader.readLine();
+        String movieFields[];
+        while(movieLine!=null)
+        {
+            movieFields = movieLine.split(",");
+            int movieId = Integer.parseInt(movieFields[0]);
+            movie[movieId] = new Movie(movieId, movieFields[1], movieFields[2].split("|"));
+            movieLine = reader.readLine();
+        }
+        reader.close();
         
         
     }
