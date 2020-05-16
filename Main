@@ -17,19 +17,19 @@ public class Main
         reader.readLine();
         String ratings = reader.readLine();
         String[] ratingsFields;
+        User [] user = new User[750];
         int userId = 0;
-        User user = new User(0);
         while (ratings != null) 
         {
             ratingsFields = ratings.split(",");
             if (userId != Integer.parseInt(ratingsFields[0]))
             {
                 userId = Integer.parseInt(ratingsFields[0]);
-                user = new User(userId);
+                user[userId] = new User(userId);
                 
             }
-            user.addMovieId(Integer.parseInt(ratingsFields[1]));
-            user.addRating(Double.parseDouble(ratingsFields[2]));
+            user[userId].addMovieId(Integer.parseInt(ratingsFields[1]));
+            user[userId].addRating(Double.parseDouble(ratingsFields[2]));
             ratings = reader.readLine();
         }
         reader.close();
