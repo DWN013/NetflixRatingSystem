@@ -6,14 +6,13 @@
  */
 public class Movie
 {
-    private String title;
-    private String[] genres;
-    private double[] ratings;
-    public Movie (String t, String[] g, double[] r)
+    private int movieId;
+    private String title, genres[];
+    public Movie (int m, String t,String [] g)
     {
+        movieId = m;
         title = t;
         genres = g;
-        ratings = r;
     }
 }
 
