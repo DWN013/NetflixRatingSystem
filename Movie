@@ -9,7 +9,7 @@ public class Movie
 {
     private int movieId;
     private String title, genres[];
-    private List<Double> movieRating = new ArrayList();
+    private ArrayList<Double> movieRating = new ArrayList();
     private double averageRating = 0, totalRating = 0;
     public Movie (int m, String t,String [] g)
     {
@@ -24,6 +24,9 @@ public class Movie
     }
     public double getAverageRating(){
         return averageRating;
+    }
+    public String getTitle(){
+        return title;
     }
     
 }
