@@ -8,7 +8,7 @@ import java.util.*;
 public class Genre
 {
     private String genre[];
-    public Genre (String g)
+    public Genre (String[] g)
     {
         genre = g;
     }
