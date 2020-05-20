@@ -11,13 +11,13 @@ public class Main
     public static void main (String[] args) throws IOException
     {
     
-        #Make a LIST of all the possible genres used
+        //Make a LIST of all the possible genres used
     
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
             "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
             "IMAX","Comedy","Mystery","Children","Musical"};
         
- 
+        
         ArrayList <Integer> genresList[] = new ArrayList[20];
         
         
@@ -26,8 +26,10 @@ public class Main
         
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
         
-        #List of empty slots for the movies
+        //List of empty slots for the movies
         Movie [] movie = new Movie[200000];
+        
+        //reads one line string input
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
@@ -58,7 +60,11 @@ public class Main
         reader.readLine();
         String ratings = reader.readLine();
         String[] ratingsFields;
+        
+        #user list of all the raters
         User [] user = new User[750];
+        
+        
         int userId = 0;
         while (ratings != null) 
         {
