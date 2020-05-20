@@ -8,9 +8,9 @@ import java.util.*;
 public class Movie
 {
     private int movieId;
-    private String title, genres[];
+    public String title, genres[];
     private ArrayList<Double> movieRating = new ArrayList();
-    private double averageRating = 0, totalRating = 0;
+    public double averageRating = 0, totalRating = 0;
     public Movie (int m, String t,String [] g)
     {
         movieId = m;
