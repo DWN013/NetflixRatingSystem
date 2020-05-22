@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 /**
@@ -14,6 +15,9 @@ public class Main
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
         ArrayList <Integer> genresList[] = new ArrayList[20];
+        //The integer based array for the movie ratings that the user of the program gives
+        int[] newRatings = new int[20];
+        int zeroCounter = 0;
         for(int i = 0;i<20;i++) genresList[i] = new ArrayList();
 
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
@@ -21,6 +25,7 @@ public class Main
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
+
         while(movieLine!=null)
         {
             movieFields = movieLine.split(",");
@@ -103,6 +108,15 @@ public class Main
                 }
             }
             System.out.println(movie[index].title);
+        }
+        System.out.println("Please rate these movies on a scale from 0 - 5 (Increments of .5. 0 Meaning you have not seen the movie, 5 meaning I like it alot, .5 meaning you disliked it heavily.)");
+        for(int i  = 0;i<20;i++) {
+            System.out.println("Input Rating for Movie" + i);
+            newRatings[i] = Integer.parseInt(input.next());
+            if (newRatings[i] == 0)
+            {
+                zeroCounter++;
+            }
         }
     }
 }

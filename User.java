@@ -1,5 +1,4 @@
 import java.util.*;
-//
 public class User {
     private int userId;
     private ArrayList<Integer> movieId = new ArrayList();
@@ -8,9 +7,11 @@ public class User {
     {
         userId = u;
     }
+
     public void addMovieId(int m){
         movieId.add(m);
     }
+
     public void addRating(double r){
         ratings.add(r);
     }
