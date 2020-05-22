@@ -10,12 +10,13 @@ public class Main
 {
     public static void main (String[] args) throws IOException
     {
+        //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
         ArrayList <Integer> genresList[] = new ArrayList[20];
         for(int i = 0;i<20;i++) genresList[i] = new ArrayList();
-
+        
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
         Movie [] movie = new Movie[200000];
         reader.readLine();
@@ -92,7 +93,7 @@ public class Main
             record2[i] = index;
             System.out.println(movie[index].title);
         }
-
+        
         System.out.println();
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
