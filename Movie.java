@@ -37,5 +37,8 @@ public class Movie
     public String getTitle(){
         return title;
     }
+    public double totalRating(){
+        return totalRating;
+    }
 
 }
