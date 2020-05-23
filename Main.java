@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 /**
@@ -86,14 +85,30 @@ public class Main
         }
         
         
-        System.out.println("Please rate these movies on a scale from 0 - 5 (Increments of .5. 0 Meaning you have not seen the movie, 5 meaning I like it alot, .5 meaning you disliked it heavily.)");
-        for(int i  = 0;i<20;i++) {
-            System.out.println("Input Rating for Movie" + i);
-            newRatings[i] = Integer.parseInt(input.next());
-            if (newRatings[i] == 0)
-            {
-                zeroCounter++;
+        System.out.println("Please rate 20 movie from 0~5, if you don't want to rate it, -1");
+        System.out.println();
+        User Andrew = new User((int)10e9+7);
+        ArrayList<Integer> check = new ArrayList();
+        int number = 1;
+        for(int i = 0;i<20;i++){
+            
+            double max = 0; int index = 0;
+            for(int j = 0;j<genresList[i].size();j++){
+                int movieId = genresList[i].get(j);
+                if(!check.contains(movieId)&&movie[movieId].totalRating()>=max){
+                    max = movie[movieId].totalRating();
+                    index = genresList[i].get(j);
+                    
+                }
             }
+            check.add(index);
+            System.out.println(number+"\t"+movie[index].getTitle());
+            double rating = in.nextDouble();
+            if(rating>=0&&rating<=5){
+                Andrew.addMovieId(index);
+                Andrew.addRating(max);
+            }
+            
         }
     }
 }
