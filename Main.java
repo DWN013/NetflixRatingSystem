@@ -84,32 +84,8 @@ public class Main
             record[i] = index;
             System.out.println(movie[index].title);
         }
-
-        System.out.println();
-        int [] record2 = new int[20];
-        for(int i = 0;i<20;i++){
-            double max = 0; int index = 0;
-            for(int j = 0;j<genresList[i].size();j++){
-                if(movie[genresList[i].get(j)].totalRating>=max&&genresList[i].get(j)!=record[i]){
-                    max = movie[genresList[i].get(j)].totalRating;
-                    index = genresList[i].get(j);
-                }
-            }
-            record2[i] = index;
-            System.out.println(movie[index].title);
-        }
         
-        System.out.println();
-        for(int i = 0;i<20;i++){
-            double max = 0; int index = 0;
-            for(int j = 0;j<genresList[i].size();j++){
-                if(movie[genresList[i].get(j)].totalRating>=max&&genresList[i].get(j)!=record[i]&&genresList[i].get(j)!=record2[i]){
-                    max = movie[genresList[i].get(j)].totalRating;
-                    index = genresList[i].get(j);
-                }
-            }
-            System.out.println(movie[index].title);
-        }
+        
         System.out.println("Please rate these movies on a scale from 0 - 5 (Increments of .5. 0 Meaning you have not seen the movie, 5 meaning I like it alot, .5 meaning you disliked it heavily.)");
         for(int i  = 0;i<20;i++) {
             System.out.println("Input Rating for Movie" + i);
