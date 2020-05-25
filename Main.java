@@ -12,7 +12,7 @@ public class Main
     {
         System.out.println("Welcome to the Netflix Movie Recommender. \n There are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
-        System.out.println("By using basic commands such as 
+        System.out.println("By using basic commands such as inputting an integer from -5 to +5, you can rate a movie that you've watched.");
         
         //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
