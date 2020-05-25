@@ -10,6 +10,10 @@ public class Main
 {
     public static void main (String[] args) throws IOException
     {
+        System.out.println("Welcome to the Netflix Movie Recommender. \n There are a lot of movies out there and you may not know which to choose.");
+        System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
+        System.out.println("By using basic commands such as 
+        
         //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
