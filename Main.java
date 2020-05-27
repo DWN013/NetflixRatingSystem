@@ -13,7 +13,7 @@ public class Main
         //explain what the program will do
         System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
-        System.out.println("By using basic commands such as inputting an integer from -5 to +5, you can rate a list of movies that you've watched.");
+        System.out.println("By using basic commands such as inputting an integer from 0.5 (hate it) to +5 (love it) or 0 if you never watched, you can rate a list of movies that you've watched.");
         System.out.println("Your ratings will be compaired to those of other users and based off of a similarity score, a movie will be recomended to you.");
         
         //creates a list of all possible genres
@@ -93,7 +93,7 @@ public class Main
         }
         
         //ask the user to rate the movies given to them
-        System.out.println("Please rate 20 movie from 0~5, if you don't want to rate it, -1");
+        System.out.println("Please rate 20 movie from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0");
         System.out.println();
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
