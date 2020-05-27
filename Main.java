@@ -14,7 +14,7 @@ public class Main
         System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
         System.out.println("By using basic commands such as inputting an integer from -5 to +5, you can rate a list of movies that you've watched.");
-        System.out.println("Your ratings will be compaired to those of other users and based off of a similarity score a movie will be recomended to you.");
+        System.out.println("Your ratings will be compaired to those of other users and based off of a similarity score, a movie will be recomended to you.");
         
         //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
