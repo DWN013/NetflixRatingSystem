@@ -23,11 +23,13 @@ public class User {
     public void addMovieId(int m){
         movieId.add(m);
     }
+    
     //add a rating to the list of ratings
     public void addRating(double r){
         ratings.add(r);
     }
     
+    //organize the movies rated into a dislike list and like list
     public void addLists(){
         for(int i = 0;i<movieId.size();i++){
             if(ratings.get(i)>=3.5){

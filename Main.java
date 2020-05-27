@@ -10,19 +10,23 @@ public class Main
 {
     public static void main (String[] args) throws IOException
     {
-        System.out.println("Welcome to the Netflix Movie Recommender. \n There are a lot of movies out there and you may not know which to choose.");
+        //explain what the program will do
+        System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
-        System.out.println("By using basic commands such as inputting an integer from -5 to +5, you can rate a movie that you've watched.");
+        System.out.println("By using basic commands such as inputting an integer from -5 to +5, you can rate a list of movies that you've watched.");
+        System.out.println("Your raitings will be compaired to those of other users and based off of a similarity score a movie will be recomended to you.");
         
         //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
         ArrayList <Integer> genresList[] = new ArrayList[20];
+        
         //The integer based array for the movie ratings that the user of the program gives
         int[] newRatings = new int[20];
         int zeroCounter = 0;
         for(int i = 0;i<20;i++) genresList[i] = new ArrayList();
+        
         
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
         Movie [] movie = new Movie[200000];
@@ -88,7 +92,7 @@ public class Main
             System.out.println(movie[index].title);
         }
         
-        
+        //ask the user to rate the movies given to them
         System.out.println("Please rate 20 movie from 0~5, if you don't want to rate it, -1");
         System.out.println();
         User Andrew = new User((int)10e9+7);
