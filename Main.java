@@ -1,10 +1,9 @@
 import java.util.*;
 import java.io.*;
 /**
- * Write a description of class Main here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * This program uses data from a file with information on movies and a file of movies ratings of past users
+ * The program asks a user to rate 20 movies then it compires their ratings with those of other users by...
+ * Using that information it recomends a movie to them
  */
 public class Main
 {
@@ -15,6 +14,9 @@ public class Main
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
         System.out.println("By using basic commands such as inputting an integer from 0.5 (hate it) to +5 (love it) or 0 if you never watched, you can rate a list of movies that you've watched.");
         System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, a movie will be recomended to you.");
+        
+        //create a scanner to get input from the user
+        Scanner in = new Scanner(System.in);
         
         //creates a list of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
@@ -94,8 +96,7 @@ public class Main
         }
         
         //ask the user to rate the movies given to them
-        System.out.println("Please rate 20 movie from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0");
-        System.out.println();
+        System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
