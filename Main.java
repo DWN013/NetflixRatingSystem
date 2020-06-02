@@ -122,6 +122,7 @@ public class Main
                 Andrew.addMovieId(index);
                 Andrew.addRating(rating);
             }
+            rating = 0.1;
 
         }
 
