@@ -131,11 +131,8 @@ public class Main
                     //prevents going through the Andrew list multiple times if movie id is same
                         if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
                         {
-                            if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
-                            {
                                 user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
                                 break;
-                            }
                         }
                 }
                 totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size();
