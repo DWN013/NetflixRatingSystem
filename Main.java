@@ -119,21 +119,34 @@ public class Main
             }
 
         }
+        int totalMovieCount;
+        double userScore = 1000000;
+        int compatibleUser = 0;
         for (int i = 0; i<user.length; i++)
         {
-            for (int j = 0; j < user[i].returnRatings().size(); j++)
-            {
-                for (int h = 0; h < Andrew.returnRatings().size(); h++)
+            if (user[i] != null){
+                for (int j = 0; j < user[i].returnRatings().size(); j++)
                 {
+                    for (int h = 0; h < Andrew.returnRatings().size(); h++)
                     //prevents going through the Andrew list multiple times if movie id is same
-                    if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
-                    {
-                        user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
-                        break;
-                    }
+                        if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
+                        {
+                            if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
+                            {
+                                user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
+                                break;
+                            }
+                        }
+                }
+                totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size();
+                user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie()*(1-(user[i].getCommonMovie()/(totalMovieCount-user[i].getCommonMovie()))));
+                if (user[i].getDifScore() < userScore)
+                {
+                    compatibleUser = i;
+                    userScore = user[i].getDifScore();
                 }
             }
-            user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie());
         }
+        System.out.println(compatibleUser);
     }
 }
