@@ -99,6 +99,7 @@ public class Main
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
+        double rating = .1;
         for(int i = 0;i<20;i++){
 
             double max = 0; int index = 0;
@@ -112,11 +113,17 @@ public class Main
             }
             check.add(index);
             System.out.println(number+"\t"+movie[index].getTitle());
-            double rating = in.nextDouble();
-            if(rating>=0&&rating<=5){
+            while(rating%.5 != 0)
+            {
+                System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
+                rating = in.nextDouble();
+            }
+            if(rating != 0){
                 Andrew.addMovieId(index);
                 Andrew.addRating(rating);
             }
+
+        }
 
         }
         int totalMovieCount;
