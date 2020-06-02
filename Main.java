@@ -113,7 +113,7 @@ public class Main
             }
             check.add(index);
             System.out.println(number+"\t"+movie[index].getTitle());
-            while(rating%.5 != 0)
+            while(rating%.5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
