@@ -115,7 +115,7 @@ public class Main
             double rating = in.nextDouble();
             if(rating>=0&&rating<=5){
                 Andrew.addMovieId(index);
-                Andrew.addRating(max);
+                Andrew.addRating(rating);
             }
 
         }
