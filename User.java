@@ -56,4 +56,9 @@ public class User {
     {
         return moviesInCommon;
     }
+    
+    public double getDifScore()
+    {
+        return difScore;
+    }
 }
