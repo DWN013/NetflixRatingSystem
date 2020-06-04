@@ -12,8 +12,8 @@ public class Main
         //explain what the program will do
         System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
-        System.out.println("By using basic commands such as inputting an integer from 0.5 (hate it) to +5 (love it) or 0 if you never watched, you can rate a list of movies that you've watched.");
-        System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, a movie will be recomended to you.");
+        System.out.println("Using basic commands such as entering an integer from +0.5 (hate) to +5 (love) \nor 0 if you've never seen, you can rate a list of movies that you've watched.");
+        System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, some movies will be recomended to you.");
 
         //create a scanner to get input from the user
         Scanner in = new Scanner(System.in);
@@ -58,7 +58,7 @@ public class Main
             movieLine = reader.readLine();
         }
         reader.close();
-
+        
         reader = new BufferedReader(new FileReader("ratings.csv"));
         reader.readLine();
         String ratings = reader.readLine();
@@ -80,7 +80,7 @@ public class Main
             ratings = reader.readLine();
         }
         reader.close();
-
+        
         int [] record = new int[20];
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
@@ -92,22 +92,30 @@ public class Main
             }
             record[i] = index;
         }
-
+        String recordAns = ("no");
+        //ask the user if they want their responses recorded into the "database" (csv file)
+        System.out.println("\nWould you like your responses to be recorded? (Type yes or no)");
+        recordAns = in.next();
         //ask the user to rate the movies given to them
         System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
         double rating = .1;
+        String strRating = String.valueOf(rating);
+        //Create a writer instance to write data to csv file
+        FileWriter writer = new FileWriter("ratings.csv");
+        if (recordAns.equalsIgnoreCase("yes")){
+            writer.append("5318008,");
+        }
+        //MAKE SURE TO COMMENT THIS
         for(int i = 0;i<20;i++){
-
             double max = 0; int index = 0;
             for(int j = 0;j<genresList[i].size();j++){
                 int movieId = genresList[i].get(j);
                 if(!check.contains(movieId)&&movie[movieId].totalRating()>=max){
                     max = movie[movieId].totalRating();
                     index = genresList[i].get(j);
-
                 }
             }
             check.add(index);
@@ -116,6 +124,9 @@ public class Main
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
+            }
+            if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
+                writer.append(movieId + ",");writer.append(strRating);writer.append("101010101");
             }
             if(rating != 0){
                 Andrew.addMovieId(index);
