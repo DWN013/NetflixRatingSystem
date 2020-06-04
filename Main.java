@@ -91,7 +91,6 @@ public class Main
                 }
             }
             record[i] = index;
-            System.out.println(movie[index].title);
         }
 
         //ask the user to rate the movies given to them
@@ -123,9 +122,6 @@ public class Main
                 Andrew.addRating(rating);
             }
             rating = 0.1;
-
-        }
-
         }
         int totalMovieCount;
         double userScore = 1000000;
@@ -139,11 +135,11 @@ public class Main
                     //prevents going through the Andrew list multiple times if movie id is same
                         if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
                         {
-                                user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
-                                break;
+                            user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
+                            break;
                         }
                 }
-                totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size();
+                totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size() - user[i].getCommonMovie();
                 user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie()*(1-(user[i].getCommonMovie()/(totalMovieCount-user[i].getCommonMovie()))));
                 if (user[i].getDifScore() < userScore)
                 {
@@ -152,6 +148,13 @@ public class Main
                 }
             }
         }
-        System.out.println(compatibleUser);
+        /*System.out.append("You are most similar with User " + compatibleUser + " the movies they like are");
+        for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
+        {
+            if (user[compatibleUser].returnRatings().get(i) >= 4)
+            {
+                System.out.append(user[compatibleUser].returnMovieId()
+            }
+        }*/
     }
 }
