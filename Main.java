@@ -126,7 +126,7 @@ public class Main
                 rating = in.nextDouble();
             }
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append(movieId + ",");writer.append(strRating);writer.append("101010101");
+                writer.append(index + ",");writer.append(strRating);writer.append("101010101");
             }
             if(rating != 0){
                 Andrew.addMovieId(index);
