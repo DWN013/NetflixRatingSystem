@@ -102,7 +102,6 @@ public class Main
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
         double rating = .1;
-        String strRating = String.valueOf(rating);
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv");
         if (recordAns.equalsIgnoreCase("yes")){
@@ -126,7 +125,7 @@ public class Main
                 rating = in.nextDouble();
             }
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append(index + ",");writer.append(strRating);writer.append("101010101");
+                writer.append(index + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
             }
             if(rating != 0){
                 Andrew.addMovieId(index);
@@ -134,6 +133,7 @@ public class Main
             }
             rating = 0.1;
         }
+        writer.close();
         int totalMovieCount;
         double userScore = 1000000;
         int compatibleUser = 0;
