@@ -25,6 +25,8 @@ public class Main
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
+        
+        //makes an array for the list of 20 different genres
         ArrayList <Integer> genresList[] = new ArrayList[20];
 
         //The integer based array for the movie ratings that the user of the program gives
