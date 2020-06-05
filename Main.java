@@ -103,10 +103,7 @@ public class Main
         int number = 1;
         double rating = .1;
         //Create a writer instance to write data to csv file
-        FileWriter writer = new FileWriter("ratings.csv");
-        if (recordAns.equalsIgnoreCase("yes")){
-            writer.append("5318008,");
-        }
+        FileWriter writer = new FileWriter("ratings.csv",true);
         //MAKE SURE TO COMMENT THIS
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
@@ -125,7 +122,7 @@ public class Main
                 rating = in.nextDouble();
             }
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append(index + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
+                writer.append("5318008,");writer.append(String.valueOf(index) + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
             }
             if(rating != 0){
                 Andrew.addMovieId(index);
@@ -159,13 +156,13 @@ public class Main
                 }
             }
         }
-        /*System.out.append("You are most similar with User " + compatibleUser + " the movies they like are");
+        System.out.println("You are most similar with User " + compatibleUser + " the movies they like are");
         for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
         {
             if (user[compatibleUser].returnRatings().get(i) >= 4)
             {
-                System.out.append(user[compatibleUser].returnMovieId()
+                System.out.println(movie[user[compatibleUser].returnMovieId().get(i)].getTitle());
             }
-        }*/
+        }
     }
 }
