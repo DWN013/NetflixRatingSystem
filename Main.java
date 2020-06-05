@@ -2,7 +2,10 @@ import java.util.*;
 import java.io.*;
 /**
  * This program uses data from a file with information on movies and a file of movies ratings of past users
- * The program asks a user to rate 20 movies then it compires their ratings with those of other users by...
+ * The program asks a user to rate 20 movies then it compires their ratings with those of other users.
+ * First it compaires what movies the user rated, finding how many movies they have in common wiht other users.
+ * Then it calculates the difference between the users' raitings on each common movie.
+ * ...
  * Using that information it recomends a movie to them
  */
 public class Main
@@ -29,13 +32,14 @@ public class Main
         int zeroCounter = 0;
         for(int i = 0;i<20;i++) genresList[i] = new ArrayList();
 
-        //takes the ratings from the movies.csv file for the  
+        //takes the movie information from the movies.csv file
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
         Movie [] movie = new Movie[200000];
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
 
+        //uses information from the file to create a new movie object
         while(movieLine!=null)
         {
             movieFields = movieLine.split(",");
@@ -59,6 +63,7 @@ public class Main
         }
         reader.close();
         
+        //takes the ratings from the ratings.csv file
         reader = new BufferedReader(new FileReader("ratings.csv"));
         reader.readLine();
         String ratings = reader.readLine();
@@ -93,17 +98,21 @@ public class Main
             record[i] = index;
         }
         String recordAns = ("no");
+        
         //ask the user if they want their responses recorded into the "database" (csv file)
         System.out.println("\nWould you like your responses to be recorded? (Type yes or no)");
         recordAns = in.next();
+        
         //ask the user to rate the movies given to them
         System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
         double rating = .1;
+        
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
+        
         //MAKE SURE TO COMMENT THIS
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
