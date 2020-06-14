@@ -25,7 +25,7 @@ public class Main
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
-        
+
         //makes an array for the list of 20 different genres
         ArrayList <Integer> genresList[] = new ArrayList[20];
 
@@ -40,7 +40,6 @@ public class Main
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
-
         //uses information from the file to create a new movie object
         while(movieLine!=null)
         {
@@ -64,7 +63,7 @@ public class Main
             movieLine = reader.readLine();
         }
         reader.close();
-        
+
         //takes the ratings from the ratings.csv file
         reader = new BufferedReader(new FileReader("ratings.csv"));
         reader.readLine();
@@ -72,6 +71,7 @@ public class Main
         String[] ratingsFields;
         User [] user = new User[750];
         int userId = 0;
+        int openUserSpot = 0;
         while (ratings != null) 
         {
             ratingsFields = ratings.split(",");
@@ -79,7 +79,6 @@ public class Main
             {
                 userId = Integer.parseInt(ratingsFields[0]);
                 user[userId] = new User(userId);
-
             }
             movie[Integer.parseInt(ratingsFields[1])].addRating(Double.parseDouble(ratingsFields[2]));
             user[userId].addMovieId(Integer.parseInt(ratingsFields[1]));
@@ -87,6 +86,13 @@ public class Main
             ratings = reader.readLine();
         }
         reader.close();
+        //searches for an open spot in the user list, when it finds one it stops and records the spot
+        for(int i = 1; i<user.length; i++){
+            if(user[i] == null){
+                openUserSpot = i;
+                break;
+            }
+        }       
         
         int [] record = new int[20];
         for(int i = 0;i<20;i++){
@@ -104,17 +110,17 @@ public class Main
         //ask the user if they want their responses recorded into the "database" (csv file)
         System.out.println("\nWould you like your responses to be recorded? (Type yes or no)");
         recordAns = in.next();
-        
+
         //ask the user to rate the movies given to them
         System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
         double rating = .1;
-        
+
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
-        
+
         //MAKE SURE TO COMMENT THIS
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
@@ -133,7 +139,7 @@ public class Main
                 rating = in.nextDouble();
             }
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append("5318008,");writer.append(String.valueOf(index) + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
+                writer.append(String.valueOf(openUserSpot)+",");writer.append(String.valueOf(index) + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
             }
             if(rating != 0){
                 Andrew.addMovieId(index);
@@ -167,7 +173,7 @@ public class Main
                 }
             }
         }
-        System.out.println("You are most similar with User " + compatibleUser + " the movies they like are");
+        System.out.println("You are most similar with User " + compatibleUser + ". The movies reccomended for you are:");
         for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
         {
             if (user[compatibleUser].returnRatings().get(i) >= 4)
