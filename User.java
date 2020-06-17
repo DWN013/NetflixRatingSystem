@@ -1,9 +1,10 @@
 import java.util.*;
-public class User {
+public class User 
+{
     //creates variables for the id of a user and number of movies in common
     private int userId, moviesInCommon;
 
-    //creates variables for the difference score and difference
+    //creates variables for the difference scores and difference
     private double difScore, difference;
    
     //creates a fillable array of blank size for the id of movies a user rates
