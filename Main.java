@@ -43,12 +43,15 @@ public class Main
         //uses information from the file to create a new movie object
         while(movieLine!=null)
         {
+            //
             movieFields = movieLine.split(",");
             int movieId = Integer.parseInt(movieFields[0]);
             String middle = movieFields[1];
             for(int i = 2;i<movieFields.length-1;i++){
                 middle = middle+","+movieFields[i];
             }
+            
+            //this sorts all of the movies by genres by crossreferencing it with the list genresIndex.
             String [] genres = movieFields[movieFields.length-1].split("\\|");
             for(int i = 0;i<genres.length;i++){
                 for(int j = 0;j<20;j++){
@@ -64,7 +67,7 @@ public class Main
         }
         reader.close();
 
-        //takes the ratings from the ratings.csv file
+        //takes the ratings from the ratings.csv file and stores it
         reader = new BufferedReader(new FileReader("ratings.csv"));
         reader.readLine();
         String ratings = reader.readLine();
