@@ -12,49 +12,51 @@ public class Main
 {
     public static void main (String[] args) throws IOException
     {
-        //explain what the program will do
+        //user manual: tells the user what the purpose
         System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
         System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
         System.out.println("Using basic commands such as entering an integer from +0.5 (hate) to +5 (love) \nor 0 if you've never seen, you can rate a list of movies that you've watched.");
         System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, some movies will be recomended to you.");
 
-        //create a scanner to get input from the user
         Scanner in = new Scanner(System.in);
 
-        //creates a list of all possible genres
+        //creates an array of all possible genres
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
 
-        //makes an array for the list of 20 different genres
+        //makes an empty array with 20 different spots for the ratings
         ArrayList <Integer> genresList[] = new ArrayList[20];
 
         //The integer based array for the movie ratings that the user of the program gives
         int[] newRatings = new int[20];
         int zeroCounter = 0;
-        for(int i = 0;i<20;i++) genresList[i] = new ArrayList();
+        for(int i = 0; i<20; i++) genresList[i] = new ArrayList();
 
-        //takes the movie information from the movies.csv file
+        /*takes the movie information from the movies.csv file, and sorts them
+        create a new buffer reader*/
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
+        // an array to contain all of the movies from the file
         Movie [] movie = new Movie[200000];
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
+       
         //uses information from the file to create a new movie object
         while(movieLine!=null)
-        {
+            {
             //
             movieFields = movieLine.split(",");
             int movieId = Integer.parseInt(movieFields[0]);
             String middle = movieFields[1];
-            for(int i = 2;i<movieFields.length-1;i++){
-                middle = middle+","+movieFields[i];
+            for(int i = 2; i<movieFields.length-1; i++){
+                middle = middle + "," + movieFields[i];
             }
             
             //this sorts all of the movies by genres by crossreferencing it with the list genresIndex.
             String [] genres = movieFields[movieFields.length-1].split("\\|");
             for(int i = 0;i<genres.length;i++){
-                for(int j = 0;j<20;j++){
+                for(int j = 0; j<20; j++){
                     if(genres[i].equals(genresIndex[j])){
                         genresList[j].add(movieId);
                         break;
@@ -98,10 +100,12 @@ public class Main
         }       
         
         int [] record = new int[20];
-        for(int i = 0;i<20;i++){
+        for(int i = 0; i<20; i++){
             double max = 0; int index = 0;
-            for(int j = 0;j<genresList[i].size();j++){
-                if(movie[genresList[i].get(j)].totalRating>=max){
+            for(int j = 0; j<genresList[i].size(); j++)
+            {
+                if(movie[genresList[i].get(j)].totalRating>=max)
+                {
                     max = movie[genresList[i].get(j)].totalRating;
                     index = genresList[i].get(j);
                 }
@@ -127,33 +131,40 @@ public class Main
         //MAKE SURE TO COMMENT THIS
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
-            for(int j = 0;j<genresList[i].size();j++){
+            for(int j = 0;j<genresList[i].size();j++)
+            {
                 int movieId = genresList[i].get(j);
-                if(!check.contains(movieId)&&movie[movieId].totalRating()>=max){
+                if(!check.contains(movieId)&&movie[movieId].totalRating()>=max)
+                {
                     max = movie[movieId].totalRating();
                     index = genresList[i].get(j);
                 }
             }
             check.add(index);
-            System.out.println(number+"\t"+movie[index].getTitle());
-            while(rating%.5 != 0 || 0> rating || rating >5)
+            System.out.println(number + "\t" + movie[index].getTitle());
+           
+            while(rating % .5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
             }
+            
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append(String.valueOf(openUserSpot)+",");writer.append(String.valueOf(index) + ",");writer.append(String.valueOf(rating));writer.append(",101010101\n");
+                writer.append(String.valueOf(openUserSpot)+","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
+           
             if(rating != 0){
                 Andrew.addMovieId(index);
                 Andrew.addRating(rating);
             }
             rating = 0.1;
         }
+       
         writer.close();
         int totalMovieCount;
         double userScore = 1000000;
         int compatibleUser = 0;
+        
         for (int i = 0; i<user.length; i++)
         {
             if (user[i] != null){
@@ -167,8 +178,10 @@ public class Main
                             break;
                         }
                 }
+               
                 totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size() - user[i].getCommonMovie();
-                user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie()*(1-(user[i].getCommonMovie()/(totalMovieCount-user[i].getCommonMovie()))));
+                user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie() * (1-(user[i].getCommonMovie() / (totalMovieCount-user[i].getCommonMovie()))));
+                
                 if (user[i].getDifScore() < userScore)
                 {
                     compatibleUser = i;
@@ -176,6 +189,7 @@ public class Main
                 }
             }
         }
+        
         System.out.println("You are most similar with User " + compatibleUser + ". The movies reccomended for you are:");
         for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
         {
