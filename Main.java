@@ -53,11 +53,14 @@ public class Main
                 middle = middle + "," + movieFields[i];
             }
             
-            //this sorts all of the movies by genres by crossreferencing it with the list genresIndex.
+            //sorts all of the movies by genres by crossreferencing it with the list genresInde
             String [] genres = movieFields[movieFields.length-1].split("\\|");
-            for(int i = 0;i<genres.length;i++){
-                for(int j = 0; j<20; j++){
-                    if(genres[i].equals(genresIndex[j])){
+            for(int i = 0; i<genres.length; i++)
+            {
+                for(int j = 0; j<20; j++)
+                {
+                    if(genres[i].equals(genresIndex[j]))
+                    {
                         genresList[j].add(movieId);
                         break;
                     }
@@ -74,9 +77,14 @@ public class Main
         reader.readLine();
         String ratings = reader.readLine();
         String[] ratingsFields;
+        //creates an array with new users
         User [] user = new User[750];
+        
+        //give them an initial point 
         int userId = 0;
         int openUserSpot = 0;
+       
+        //make sure that the data is not empty
         while (ratings != null) 
         {
             ratingsFields = ratings.split(",");
@@ -100,7 +108,8 @@ public class Main
         }       
         
         int [] record = new int[20];
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<20; i++)
+        {
             double max = 0; int index = 0;
             for(int j = 0; j<genresList[i].size(); j++)
             {
