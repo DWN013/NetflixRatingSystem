@@ -7,14 +7,14 @@ public class Movie
     //creates strings for titles and genres of a movie
     public String title, genres[];
     
-    //creates a fillable array of blank size for ratings
+    //creates a fillable array of blank size for ratings that is in decimal format
     private ArrayList<Double> movieRating = new ArrayList();
     
     //creates variables for the average and total rating
     public double averageRating = 0, totalRating = 0;
     
     //the constructor for objects of type Movie
-    public Movie (int m, String t,String [] g)
+    public Movie (int m, String t, String [] g)
     {
         movieId = m;
         title = t;
@@ -23,7 +23,8 @@ public class Movie
     
     //methods of object Movie
     //adds a rating to the list of ratings on the movie
-    public void addRating(double r){
+    public void addRating(double r)
+    {
         movieRating.add(r);
         totalRating+=r;
         averageRating = totalRating/movieRating.size();
