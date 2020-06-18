@@ -55,7 +55,7 @@ public class Main
                 middle = middle + "," + movieFields[i];
             }
             
-            //sorts all of the movies by genres by crossreferencing it with the list genresInde
+            //sorts all of the movies by genres by crossreferencing it with the list genresIndex
             String [] genres = movieFields[movieFields.length-1].split("\\|");
             for(int i = 0; i<genres.length; i++)
             {
