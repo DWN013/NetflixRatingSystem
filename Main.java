@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 /**
  * This program uses data from a file with information on movies and a file of movies ratings of past users
- * The program asks a user to rate 20 movies then it compires their ratings with those of other users.
- * First it compaires what movies the user rated, finding how many movies they have in common wiht other users.
- * Then it calculates the difference between the users' raitings on each common movie.
+ * The program asks a user to rate 20 movies, then it compares their ratings with those of other users.
+ * First it compares what movies the users rated, finding how many movies they have in common with other users.
+ * Then it calculates the difference between the users' ratings on each common movie.
  * ...
- * Using that information it recomends a movie to them
+ * Using that information it recommends a movie to them
  */
 public class Main
 {
@@ -86,9 +86,11 @@ public class Main
         int userId = 0;
         int openUserSpot = 0;
        
-        //make sure that the data is not empty
+        //this reads all the data to make it useable for us
+        //makes sure the data is not empty so that we can read the data and store
         while (ratings != null) 
         {
+            //we are splitting the data with a commma to store
             ratingsFields = ratings.split(",");
             if (userId != Integer.parseInt(ratingsFields[0]))
             {
@@ -102,18 +104,21 @@ public class Main
         }
         reader.close();
         //searches for an open spot in the user list, when it finds one it stops and records the spot
-        for(int i = 1; i<user.length; i++){
-            if(user[i] == null){
+        for(int i = 1; i<user.length; i++)
+        {
+            if(user[i] == null)
+            {
                 openUserSpot = i;
                 break;
             }
         }       
         
-        //creates a new list to record .
+        //creates a new list to record 
         int [] record = new int[20];
         for(int i = 0; i<20; i++)
         {
             double max = 0; int index = 0;
+            //this is the program that gets the data for the user to rate the movies
             for(int j = 0; j<genresList[i].size(); j++)
             {
                 if(movie[genresList[i].get(j)].totalRating>=max)
@@ -141,13 +146,16 @@ public class Main
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
 
-        //
-        for(int i = 0;i<20;i++){
+        //for loop to check the genresList 
+        for(int i = 0; i<20; i++)
+        {
             double max = 0; int index = 0;
-            for(int j = 0;j<genresList[i].size();j++)
+            for(int j = 0; j<genresList[i].size(); j++)
             {
                 int movieId = genresList[i].get(j);
-                if(!check.contains(movieId)&&movie[movieId].totalRating()>=max)
+                /*if the movieID is not contained and the total rating is greater than the max,
+                change the max as the total rating*/
+                if(!check.contains(movieId) && movie[movieId].totalRating() >= max)
                 {
                     max = movie[movieId].totalRating();
                     index = genresList[i].get(j);
@@ -156,16 +164,16 @@ public class Main
             check.add(index);
             System.out.println(number + "\t" + movie[index].getTitle());
            
-            //keeps asking the user to rate the movie till they give valad input
+            //keeps asking the user to rate the movie until they give a valad input
             while(rating % .5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
             }
             
-            //records the user's ratings if they agreeed to
+            //records the user's ratings if they agreed to
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
-                writer.append(String.valueOf(openUserSpot)+","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
+                writer.append(String.valueOf(openUserSpot) + ","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
            
             if(rating != 0){
@@ -175,27 +183,32 @@ public class Main
             rating = 0.1;
         }
        
+        //finishes the writing process
         writer.close();
         int totalMovieCount;
         double userScore = 1000000;
         int compatibleUser = 0;
         
+        //gives the users the recommendations
         for (int i = 0; i<user.length; i++)
         {
+            //make use that part of the array is not empty
             if (user[i] != null){
                 for (int j = 0; j < user[i].returnRatings().size(); j++)
                 {
                     for (int h = 0; h < Andrew.returnRatings().size(); h++)
-                    //prevents going through the Andrew list multiple times if movie id is same
+                    //prevents going through the Andrew list multiple times if movie id is the same
                         if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
                         {
                             user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
                             break;
                         }
                 }
-               
                 totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size() - user[i].getCommonMovie();
-                user[i].giveDifScore(user[i].returnDifference()/user[i].getCommonMovie() * (1-(user[i].getCommonMovie() / (totalMovieCount-user[i].getCommonMovie()))));
+                /*we do differnece/common so that as difference becomes similar, the similarity becomes larger
+                * the reason why we do 1-common/(total-common) is to put common/(total-common) into the same direction as difference/common
+                if we do 1-(common/(total/common)), as the values of this gets smaller, similarity becomes larger. This is the same direction as difference/common*/  
+                user[i].giveDifScore(user[i].returnDifference() / user[i].getCommonMovie() * (1-(user[i].getCommonMovie() / (totalMovieCount-user[i].getCommonMovie()))));
                 
                 if (user[i].getDifScore() < userScore)
                 {
