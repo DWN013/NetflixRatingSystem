@@ -18,6 +18,7 @@ public class Main
         System.out.println("Using basic commands such as entering an integer from +0.5 (hate) to +5 (love) \nor 0 if you've never seen, you can rate a list of movies that you've watched.");
         System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, some movies will be recomended to you.");
 
+        //creates a scanner to get input
         Scanner in = new Scanner(System.in);
 
         //creates an array of all possible genres
@@ -36,6 +37,7 @@ public class Main
         /*takes the movie information from the movies.csv file, and sorts them
         create a new buffer reader*/
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
+        
         // an array to contain all of the movies from the file
         Movie [] movie = new Movie[200000];
         reader.readLine();
@@ -107,6 +109,7 @@ public class Main
             }
         }       
         
+        //
         int [] record = new int[20];
         for(int i = 0; i<20; i++)
         {
@@ -129,6 +132,7 @@ public class Main
 
         //ask the user to rate the movies given to them
         System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
+        //creates an object of type user, Andrew
         User Andrew = new User((int)10e9+7);
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
@@ -152,12 +156,14 @@ public class Main
             check.add(index);
             System.out.println(number + "\t" + movie[index].getTitle());
            
+            //keeps asking the user to rate the movie till they give valad input
             while(rating % .5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
             }
             
+            //records the user's ratings if they agreeed to
             if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
                 writer.append(String.valueOf(openUserSpot)+","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
@@ -199,6 +205,7 @@ public class Main
             }
         }
         
+        //prints out the user number the current user is most common with and all the movies they rated highly
         System.out.println("You are most similar with User " + compatibleUser + ". The movies reccomended for you are:");
         for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
         {
