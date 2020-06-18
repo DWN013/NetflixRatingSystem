@@ -30,8 +30,7 @@ public class Main
         ArrayList <Integer> genresList[] = new ArrayList[20];
 
         //The integer based array for the movie ratings that the user of the program gives
-        int[] newRatings = new int[20];
-        int zeroCounter = 0;
+        int[] newRatings = new int[20]; 
         for(int i = 0; i<20; i++) genresList[i] = new ArrayList();
 
         /*takes the movie information from the movies.csv file, and sorts them
