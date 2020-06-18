@@ -130,7 +130,7 @@ public class Main
         recordAns = in.next();
 
         //ask the user to rate the movies given to them
-        System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
+        System.out.println("Please rate these movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         //creates an object of type user, Andrew
         User Andrew = new User((int)10e9+7);
         //Will make sure there is no overlap in movies asked by storing the movies we've already asked about
