@@ -47,7 +47,7 @@ public class Main
         //uses information from the file to create a new movie object
         while(movieLine!=null)
             {
-            //
+            //This alters the csv file. 
             movieFields = movieLine.split(",");
             int movieId = Integer.parseInt(movieFields[0]);
             String middle = movieFields[1];
@@ -109,7 +109,7 @@ public class Main
             }
         }       
         
-        //
+        //creates a new list to record .
         int [] record = new int[20];
         for(int i = 0; i<20; i++)
         {
@@ -141,7 +141,7 @@ public class Main
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
 
-        //MAKE SURE TO COMMENT THIS
+        //
         for(int i = 0;i<20;i++){
             double max = 0; int index = 0;
             for(int j = 0;j<genresList[i].size();j++)
