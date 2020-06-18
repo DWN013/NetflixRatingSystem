@@ -64,9 +64,9 @@ public class Main
             {
                 for(int j = 0; j<20; j++)
                 {
-                    //Only checks the first genre
                     if(genres[i].equals(genresIndex[j]))
                     {
+                        //Adds the movie to a genre its part of
                         genresList[j].add(movieId);
                         break;
                     }
@@ -93,18 +93,23 @@ public class Main
         int openUserSpot = 0;
 
         //this reads all the data to make it useable for us
-        //makes sure the data is not empty so that we can read the data and store
+        //Stops when there is no more users to check
         while (ratings != null) 
         {
-            //we are splitting the data with a commma to store
+            //Splits the data into userId, movieId, rating and timestamp. Timestamp is useless
             ratingsFields = ratings.split(",");
+            //Once the userId changes it means that all the data has been collected for one user and an object of type user can be made
             if (userId != Integer.parseInt(ratingsFields[0]))
             {
                 userId = Integer.parseInt(ratingsFields[0]);
+                //We just made a constructor with the userId. The movieId and rating is added seperately so there's no need for it in the constructor
                 user[userId] = new User(userId);
             }
+            //Adds the user's rating of a movie to the total ratings of a movie, so we can keep track of what's the most popular movie to ask about
             movie[Integer.parseInt(ratingsFields[1])].addRating(Double.parseDouble(ratingsFields[2]));
+            //Add's the movieId to the user class so we know what movie they watched
             user[userId].addMovieId(Integer.parseInt(ratingsFields[1]));
+            //Adds the rating for the particular movie
             user[userId].addRating(Double.parseDouble(ratingsFields[2]));
             ratings = reader.readLine();
         }
@@ -129,6 +134,7 @@ public class Main
         System.out.println("Please rate these 20 movies from 0.5 (hate it) to +5 (love it), if you didn't watch it type 0 \n");
         //creates an object of type user, Andrew
         User Andrew = new User((int)10e9+7);
+        //Will make sure there is no overlap in movies asked by storing the movies we've already asked about
         ArrayList<Integer> check = new ArrayList();
         int number = 1;
         double rating = .1;
@@ -150,6 +156,7 @@ public class Main
                     index = genresList[i].get(j);
                 }
             }
+            //Stores the we asked about movie so we don't ask about it again
             check.add(index);
             System.out.println(number + "\t" + movie[index].getTitle());
             //keeps asking the user to rate the movie until they give a valad input
@@ -164,11 +171,12 @@ public class Main
             {
                 writer.append(String.valueOf(openUserSpot) + ","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
-
+            //It the rating is 0 it means they did not watch the movie and it doesn't matter
             if(rating != 0){
                 Andrew.addMovieId(index);
                 Andrew.addRating(rating);
             }
+            //Resets rating, max, and index
             rating = 0.1;
             max= 0;
             index = 0;
@@ -177,31 +185,35 @@ public class Main
         //finishes the writing process
         writer.close();
         int totalMovieCount;
+        //Makes a high different score so it would be changed for sure
         double userScore = 1000000;
         int compatibleUser = 0;
 
         //gives the users the recommendations
+        //This for loop goes through the list of users so we can check each one        
         for (int i = 0; i<user.length; i++)
         {
-            //make use that part of the array is not empty
+            //Makes sure we are not checking an empty spot for the movies we asked about
             if (user[i] != null)
             {
+                //Goes through the ratings of user i.
                 for (int j = 0; j < user[i].returnRatings().size(); j++)
                 {
+                    //Goes through the ratings of the user we asked to rate movies
                     for (int h = 0; h < Andrew.returnRatings().size(); h++)
-                    //prevents going through the Andrew list multiple times if movie id is the same
+                    //Makes sure we are comparing the same movie
                         if (Andrew.returnMovieId().get(h) == user[i].returnMovieId().get(j))
                         {
                             user[i].addDifference(Andrew.returnRatings().get(h) - user[i].returnRatings().get(j));
+                            //prevents going through the Andrew list multiple times if movie id is the same
                             break;
                         }
                 }
                 totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size() - user[i].getCommonMovie();
-                /*we do differnece/common so that as difference becomes similar, the similarity becomes larger
-                 * the reason why we do 1-common/(total-common) is to put common/(total-common) into the same direction as difference/common
-                if we do 1-(common/(total/common)), as the values of this gets smaller, similarity becomes larger. This is the same direction as difference/common*/  
+                //We get the average difference per user and multiply it by the percentage of movies that are not in common. 
+                //A low average difference score is good and so is a low percentage of movies that are not in common
                 user[i].giveDifScore(user[i].returnDifference() / user[i].getCommonMovie() * (1-(user[i].getCommonMovie() / (totalMovieCount-user[i].getCommonMovie()))));
-
+                //Get's the lowest differnce score
                 if (user[i].getDifScore() < userScore)
                 {
                     compatibleUser = i;
