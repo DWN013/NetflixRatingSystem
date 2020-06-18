@@ -21,12 +21,12 @@ public class Main
         //creates a scanner to get input
         Scanner in = new Scanner(System.in);
 
-        //creates an array of all possible genres
+        //creates an array of all possible genres, had to check for these
         String genresIndex [] = {"Film-Noir","Action","Adventure","Horror","Romance","War","Western",
                 "Documentary","Sci-Fi","Drama","Thriller","(no genres listed)","Crime","Fantasy","Animation",
                 "IMAX","Comedy","Mystery","Children","Musical"};
 
-        //makes an empty array with 20 different spots for the ratings
+        //makes an empty array with 20 different spots for lists. Each spot has a list for each type of genre
         ArrayList <Integer> genresList[] = new ArrayList[20];
 
         //The integer based array for the movie ratings that the user of the program gives
@@ -37,30 +37,34 @@ public class Main
         /*takes the movie information from the movies.csv file, and sorts them
         create a new buffer reader*/
         BufferedReader reader = new BufferedReader(new FileReader("movies.csv"));
-        
+
         // an array to contain all of the movies from the file
         Movie [] movie = new Movie[200000];
         reader.readLine();
         String movieLine = reader.readLine();
         String movieFields[];
-       
-        //uses information from the file to create a new movie object
+        int movieId;
+        //reads the information from the csv file and organizes it
         while(movieLine!=null)
-            {
-            //This alters the csv file. 
+        {
+            //Takes the line of the csv file and splits it
             movieFields = movieLine.split(",");
-            int movieId = Integer.parseInt(movieFields[0]);
+            movieId = Integer.parseInt(movieFields[0]);
+            //It turns out that if there is a comma in the title it splits it, so this accounts for it
             String middle = movieFields[1];
+            //Takes all the split parts of the title and puts it back together
             for(int i = 2; i<movieFields.length-1; i++){
                 middle = middle + "," + movieFields[i];
             }
-            
+
             //sorts all of the movies by genres by crossreferencing it with the list genresIndex
+            //Initilized in here because the size of genres varies and we would have to check how long it needs to be, and when there is an empty spot
             String [] genres = movieFields[movieFields.length-1].split("\\|");
             for(int i = 0; i<genres.length; i++)
             {
                 for(int j = 0; j<20; j++)
                 {
+                    //Only checks the first genre
                     if(genres[i].equals(genresIndex[j]))
                     {
                         genresList[j].add(movieId);
@@ -69,7 +73,9 @@ public class Main
                 }
 
             }
+            //Creates an object movie using the information gathered
             movie[movieId] = new Movie(movieId, middle, genres);
+            //Reads the next line of the csv file
             movieLine = reader.readLine();
         }
         reader.close();
@@ -81,11 +87,11 @@ public class Main
         String[] ratingsFields;
         //creates an array with new users
         User [] user = new User[750];
-        
+
         //give them an initial point 
         int userId = 0;
         int openUserSpot = 0;
-       
+
         //this reads all the data to make it useable for us
         //makes sure the data is not empty so that we can read the data and store
         while (ratings != null) 
@@ -112,25 +118,9 @@ public class Main
                 break;
             }
         }       
-        
-        //creates a new list to record 
-        int [] record = new int[20];
-        for(int i = 0; i<20; i++)
-        {
-            double max = 0; int index = 0;
-            //this is the program that gets the data for the user to rate the movies
-            for(int j = 0; j<genresList[i].size(); j++)
-            {
-                if(movie[genresList[i].get(j)].totalRating>=max)
-                {
-                    max = movie[genresList[i].get(j)].totalRating;
-                    index = genresList[i].get(j);
-                }
-            }
-            record[i] = index;
-        }
+
         String recordAns = ("no");
-        
+
         //ask the user if they want their responses recorded into the "database" (csv file)
         System.out.println("\nWould you like your responses to be recorded? (Type yes or no)");
         recordAns = in.next();
@@ -145,14 +135,13 @@ public class Main
 
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
-
+        double max = 0; int index = 0;
         //for loop to check the genresList 
         for(int i = 0; i<20; i++)
         {
-            double max = 0; int index = 0;
             for(int j = 0; j<genresList[i].size(); j++)
             {
-                int movieId = genresList[i].get(j);
+                movieId = genresList[i].get(j);
                 /*if the movieID is not contained and the total rating is greater than the max,
                 change the max as the total rating*/
                 if(!check.contains(movieId) && movie[movieId].totalRating() >= max)
@@ -163,33 +152,34 @@ public class Main
             }
             check.add(index);
             System.out.println(number + "\t" + movie[index].getTitle());
-           
             //keeps asking the user to rate the movie until they give a valad input
             while(rating % .5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
                 rating = in.nextDouble();
             }
-            
+
             //records the user's ratings if they agreed to
             if (rating > 0 && recordAns.equalsIgnoreCase("yes"))
             {
                 writer.append(String.valueOf(openUserSpot) + ","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
-           
+
             if(rating != 0){
                 Andrew.addMovieId(index);
                 Andrew.addRating(rating);
             }
             rating = 0.1;
+            max= 0;
+            index = 0;
         }
-       
+
         //finishes the writing process
         writer.close();
         int totalMovieCount;
         double userScore = 1000000;
         int compatibleUser = 0;
-        
+
         //gives the users the recommendations
         for (int i = 0; i<user.length; i++)
         {
@@ -208,10 +198,10 @@ public class Main
                 }
                 totalMovieCount = user[i].returnRatings().size() + Andrew.returnRatings().size() - user[i].getCommonMovie();
                 /*we do differnece/common so that as difference becomes similar, the similarity becomes larger
-                * the reason why we do 1-common/(total-common) is to put common/(total-common) into the same direction as difference/common
+                 * the reason why we do 1-common/(total-common) is to put common/(total-common) into the same direction as difference/common
                 if we do 1-(common/(total/common)), as the values of this gets smaller, similarity becomes larger. This is the same direction as difference/common*/  
                 user[i].giveDifScore(user[i].returnDifference() / user[i].getCommonMovie() * (1-(user[i].getCommonMovie() / (totalMovieCount-user[i].getCommonMovie()))));
-                
+
                 if (user[i].getDifScore() < userScore)
                 {
                     compatibleUser = i;
@@ -219,7 +209,7 @@ public class Main
                 }
             }
         }
-        
+
         //prints out the user number the current user is most common with and all the movies they rated highly
         System.out.println("You are most similar with User " + compatibleUser + ". The movies reccomended for you are:");
         for (int i = 0; i<user[compatibleUser].returnRatings().size(); i++)
