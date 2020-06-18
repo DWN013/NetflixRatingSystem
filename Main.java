@@ -172,7 +172,8 @@ public class Main
             }
             
             //records the user's ratings if they agreed to
-            if (rating > 0 && recordAns.equalsIgnoreCase("yes")) {
+            if (rating > 0 && recordAns.equalsIgnoreCase("yes"))
+            {
                 writer.append(String.valueOf(openUserSpot) + ","); writer.append(String.valueOf(index) + ","); writer.append(String.valueOf(rating)); writer.append(",101010101\n");
             }
            
@@ -193,7 +194,8 @@ public class Main
         for (int i = 0; i<user.length; i++)
         {
             //make use that part of the array is not empty
-            if (user[i] != null){
+            if (user[i] != null)
+            {
                 for (int j = 0; j < user[i].returnRatings().size(); j++)
                 {
                     for (int h = 0; h < Andrew.returnRatings().size(); h++)
