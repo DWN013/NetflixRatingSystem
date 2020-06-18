@@ -141,24 +141,33 @@ public class Main
         //Create a writer instance to write data to csv file
         FileWriter writer = new FileWriter("ratings.csv",true);
         double max = 0; int index = 0;
-        //for loop to check the genresList 
-        for(int i = 0; i<20; i++)
+        System.out.println("How many multiples of 20 movies do you want to rate?");
+        int multipleCounter = 0;
+        //This forces the user to choose a multiple of 20 between 1 and 10
+        while(multipleCounter <= 0 || multipleCounter > 10)
         {
-            for(int j = 0; j<genresList[i].size(); j++)
+            System.out.println("Pick a number from 1 to 10.");
+            multipleCounter = in.nextInt();
+        }
+        //for loop to check the genresList 
+        for(int i = 0; i<(20*multipleCounter); i++)
+        {
+            //in the following loops, modulus (%) will force it to go through the genre list spots again since it only goes up to twenty
+            for(int j = 0; j<genresList[i%20].size(); j++)
             {
-                movieId = genresList[i].get(j);
+                movieId = genresList[i%20].get(j);
                 /*if the movieID is not contained and the total rating is greater than the max,
                 change the max as the total rating*/
                 if(!check.contains(movieId) && movie[movieId].totalRating() >= max)
                 {
                     max = movie[movieId].totalRating();
-                    index = genresList[i].get(j);
+                    index = genresList[i%20].get(j);
                 }
             }
             //Stores the we asked about movie so we don't ask about it again
             check.add(index);
             System.out.println(number + "\t" + movie[index].getTitle());
-            //keeps asking the user to rate the movie until they give a valad input
+            //keeps asking the user to rate the movie until they give a valid input
             while(rating % .5 != 0 || 0> rating || rating >5)
             {
                 System.out.println("Please rate this movie from 0-5, with 0 meaning you did not watch the movie. Your rating should be a multiple of .5");
