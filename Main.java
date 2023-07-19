@@ -13,10 +13,10 @@ public class Main
     public static void main (String[] args) throws IOException
     {
         //user manual: tells the user what the purpose
-        System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.");
-        System.out.println("This program was created to give recommendations based on a list of several hundred previous ratings from users like you.");
-        System.out.println("Using basic commands such as entering an integer from +0.5 (hate) to +5 (love) \nor 0 if you've never seen, you can rate a list of movies that you've watched.");
-        System.out.println("Your ratings will be compared to those of other users and based off of a similarity score, some movies will be recomended to you.");
+        System.out.println("Welcome to the Netflix Movie Recommender. \nThere are a lot of movies out there and you may not know which to choose.\n" 
+        + "This program was created to give recommendations based on a list of several hundred previous ratings from users like you.\n"
+        + "Using basic commands such as entering an integer from +0.5 (hate) to +5 (love) \nor 0 if you've never seen, you can rate a list of movies that you've watched.\n"
+        + "Your ratings will be compared to those of other users and based off of a similarity score, some movies will be recomended to you.\n");
 
         //creates a scanner to get input
         Scanner in = new Scanner(System.in);
